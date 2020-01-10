@@ -6,10 +6,8 @@ class DayResolver {
 
     static String checkDayOfWeek(String dayOfWeek){
 
-        String day = dayOfWeek.trim();
-
         for (DayWeek dayWeek: DayWeek.values()) {
-            if (dayWeek.toString().compareToIgnoreCase(day) == 0 ){
+            if (dayWeek.toString().compareToIgnoreCase(dayOfWeek) == 0 ){
                 for (DayType dayType: DayType.values()) {
                     if (dayWeek.getIdDayType() == dayType.getIdDayType()) {
                         return dayType.toString();
@@ -23,11 +21,10 @@ class DayResolver {
 
     static String checkTypeOfDay(String typeOfDay) {
 
-        String typeDay = typeOfDay.trim();
         result.setLength(0);
 
         for (DayType dayType: DayType.values()) {
-            if (dayType.toString().compareToIgnoreCase(typeDay) == 0 ){
+            if (dayType.toString().compareToIgnoreCase(typeOfDay) == 0 ){
                 for (DayWeek dayWeek: DayWeek.values()) {
                     if (dayType.getIdDayType() == dayWeek.getIdDayType()){
                         result.append(dayWeek.toString());
