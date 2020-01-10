@@ -2,44 +2,62 @@ package ua.skillsup;
 
 class DayResolver {
 
-    private static StringBuilder result = new StringBuilder();
+    private static StringBuilder resultDay = new StringBuilder();
+    private static DayType resultType;
 
     static String checkDayOfWeek(String dayOfWeek){
 
+        resultType = null;
+
+        searchDay(dayOfWeek);
+
+        return ((resultType != null) ? resultType.name() : "This isn't a day of the week.") ;
+
+    }
+
+    private static void searchDay(String searchDay){
+
         for (DayWeek dayWeek: DayWeek.values()) {
-            if (dayWeek.toString().compareToIgnoreCase(dayOfWeek) == 0 ){
-                for (DayType dayType: DayType.values()) {
-                    if (dayWeek.getDayType().toString().compareToIgnoreCase(dayType.toString()) == 0) {
-                        return dayType.toString();
-                    }
-                }
+            if (dayWeek.name().equalsIgnoreCase(searchDay)){
+                resultType = dayWeek.getDayType();
+                return;
             }
         }
 
-        return "This isn't a day of the week.";
     }
 
     static String checkTypeOfDay(String typeOfDay) {
 
-        result.setLength(0);
+        resultDay.setLength(0);
+        resultType = null;
 
+        searchType(typeOfDay);
+
+        if (resultType == null) {
+            return "This type is not defined.";
+        }
+
+        return findDay();
+    }
+
+    private static void  searchType(String typeOfDay){
         for (DayType dayType: DayType.values()) {
-            if (dayType.toString().compareToIgnoreCase(typeOfDay) == 0 ){
-                for (DayWeek dayWeek: DayWeek.values()) {
-                    if (dayType.toString().compareToIgnoreCase(dayWeek.getDayType().toString()) == 0){
-                        result.append(dayWeek.toString());
-                        result.append(", ");
-                    }
-                }
+            if (dayType.name().equalsIgnoreCase(typeOfDay) ){
+                resultType = dayType;
+                return ;
             }
         }
 
-        if(result.length() == 0) {
-            result.append("This type is not defined.");
+    }
+
+    private static String findDay(){
+        for (DayWeek dayWeek: DayWeek.values()) {
+            if (resultType.equals(dayWeek.getDayType())){
+                resultDay.append(dayWeek.toString());
+                resultDay.append(", ");
+            }
         }
-
-        return result.toString();
-
+        return resultDay.toString();
     }
 
 }
