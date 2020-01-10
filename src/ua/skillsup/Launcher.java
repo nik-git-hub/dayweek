@@ -32,5 +32,4 @@ public class Launcher {
         System.out.printf("\n%-9s - %s", msg, value);
     }
 
-
 }

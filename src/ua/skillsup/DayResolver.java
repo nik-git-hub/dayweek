@@ -9,7 +9,7 @@ class DayResolver {
         for (DayWeek dayWeek: DayWeek.values()) {
             if (dayWeek.toString().compareToIgnoreCase(dayOfWeek) == 0 ){
                 for (DayType dayType: DayType.values()) {
-                    if (dayWeek.getIdDayType() == dayType.getIdDayType()) {
+                    if (dayWeek.getDayType().toString().compareToIgnoreCase(dayType.toString()) == 0) {
                         return dayType.toString();
                     }
                 }
@@ -26,7 +26,7 @@ class DayResolver {
         for (DayType dayType: DayType.values()) {
             if (dayType.toString().compareToIgnoreCase(typeOfDay) == 0 ){
                 for (DayWeek dayWeek: DayWeek.values()) {
-                    if (dayType.getIdDayType() == dayWeek.getIdDayType()){
+                    if (dayType.toString().compareToIgnoreCase(dayWeek.getDayType().toString()) == 0){
                         result.append(dayWeek.toString());
                         result.append(", ");
                     }
