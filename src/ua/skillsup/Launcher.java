@@ -20,15 +20,15 @@ public class Launcher {
 
     private static void processDay(String message){
         String msg = message.trim();
-        print(msg, DayResolver.checkDayOfWeek(msg));
+        display(msg, DayResolver.checkDayOfWeek(msg));
     }
 
     private static void processType(String message){
         String msg = message.trim();
-        print(msg, DayResolver.checkTypeOfDay(msg));
+        display(msg, DayResolver.checkTypeOfDay(msg));
     }
 
-    private static void print(String msg, String value){
+    private static void display(String msg, String value){
         System.out.printf("\n%-9s - %s", msg, value);
     }
 

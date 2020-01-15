@@ -2,57 +2,51 @@ package ua.skillsup;
 
 class DayResolver {
 
-    private static StringBuilder resultDay = new StringBuilder();
-    private static DayType resultType;
-
     static String checkDayOfWeek(String dayOfWeek){
 
-        resultType = null;
+        DayType dayType = findType(dayOfWeek);
 
-        searchDay(dayOfWeek);
-
-        return ((resultType != null) ? resultType.name() : "This isn't a day of the week.") ;
+        return (dayType != null
+                ? dayType.name()
+                : "It isn't a day of the week.") ;
 
     }
 
-    private static void searchDay(String searchDay){
+    private static DayType findType(String searchDay){
 
         for (DayWeek dayWeek: DayWeek.values()) {
             if (dayWeek.name().equalsIgnoreCase(searchDay)){
-                resultType = dayWeek.getDayType();
-                return;
+                return dayWeek.getDayType();
             }
         }
 
+        return null;
     }
 
     static String checkTypeOfDay(String typeOfDay) {
 
-        resultDay.setLength(0);
-        resultType = null;
+        DayType resultType = searchType(typeOfDay);
 
-        searchType(typeOfDay);
+        return resultType != null
+                ? findDay(resultType)
+                : "This type is not defined.";
 
-        if (resultType == null) {
-            return "This type is not defined.";
-        }
-
-        return findDay();
     }
 
-    private static void  searchType(String typeOfDay){
+    private static DayType searchType(String typeOfDay){
         for (DayType dayType: DayType.values()) {
             if (dayType.name().equalsIgnoreCase(typeOfDay) ){
-                resultType = dayType;
-                return ;
+                return dayType;
             }
         }
-
+        return null;
     }
 
-    private static String findDay(){
+    private static String findDay(DayType dayType){
+        StringBuilder resultDay = new StringBuilder();
+
         for (DayWeek dayWeek: DayWeek.values()) {
-            if (resultType.equals(dayWeek.getDayType())){
+            if (dayType.equals(dayWeek.getDayType())){
                 resultDay.append(dayWeek.toString());
                 resultDay.append(", ");
             }
